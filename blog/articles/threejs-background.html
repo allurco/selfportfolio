@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creating the Three.js Background | Rogers Sampaio Blog</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../css/blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html">Rogers<span>.dev</span></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../index.html#home">Home</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                    <li><a href="../../index.html#experience">Experience</a></li>
+                    <li><a href="../../index.html#skills">Skills</a></li>
+                    <li><a href="../../index.html#projects">Projects</a></li>
+                    <li><a href="../../index.html#contact">Contact</a></li>
+                    <li><a href="../index.html" class="active">Blog</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="article-container">
+        <div class="article-hero">
+            <h1>Creating the Three.js Background</h1>
+            <div class="article-meta">
+                <span class="date"><i class="far fa-calendar"></i> April 11, 2025</span>
+                <span class="author">
+                    <img src="https://ui-avatars.com/api/?name=Rogers+Sampaio&background=a47864&color=fff&size=100&font-size=0.35&rounded=true&bold=true" alt="Rogers Sampaio">
+                    <span>Rogers Sampaio</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="featured-image">
+            <img src="https://placehold.co/800x400/a47864/ffffff?text=Three.js+Background" alt="Three.js Background">
+        </div>
+
+        <div class="article-content-full">
+            <p>One of the most distinctive features of my portfolio website is the interactive particle background created with Three.js. In this article, I'll walk through my approach to implementing this background, the challenges I faced, and how I ensured it enhanced rather than distracted from the site's content.</p>
+            
+            <h2>Why Three.js?</h2>
+            
+            <p>When planning my portfolio, I wanted to create a background that had depth and subtlety—something that would add visual interest without taking attention away from the content. Three.js, a powerful JavaScript 3D library, provided the perfect solution for several reasons:</p>
+            
+            <ul>
+                <li><strong>Performance</strong> - Three.js leverages WebGL, allowing for hardware-accelerated 3D rendering right in the browser</li>
+                <li><strong>Flexibility</strong> - It offers extensive control over visual effects, lighting, and particle behaviors</li>
+                <li><strong>Interactivity</strong> - The library makes it easy to create elements that respond to user actions like scrolling</li>
+                <li><strong>Modern feel</strong> - 3D elements add a contemporary touch that showcases technical proficiency</li>
+            </ul>
+            
+            <h2>Conceptual Approach</h2>
+            
+            <p>Before writing any code, I needed a clear concept for the background that would complement my design philosophy of blending modern techniques with classical elements. I settled on a particle system that would:</p>
+            
+            <ul>
+                <li>Feature subtle, flowing movements reminiscent of classical architectural patterns</li>
+                <li>Use particles in various shades of the Mocha Mousse color palette</li>
+                <li>React gently to user scrolling, creating a sense of depth</li>
+                <li>Balance between being noticeable enough to add value but subtle enough not to distract</li>
+            </ul>
+            
+            <h2>Implementation Details</h2>
+            
+            <p>The implementation process involved several key steps and considerations:</p>
+            
+            <h3>Setting Up the Container</h3>
+            
+            <p>First, I created a fixed container that would house the Three.js canvas:</p>
+            
+            <pre><code>&lt;!-- Canvas overlay for Three.js background effects --&gt;
+&lt;style&gt;
+    #canvas-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -1;
+        opacity: 0.6;
+    }
+&lt;/style&gt;
+
+&lt;div id="canvas-container"&gt;&lt;/div&gt;</code></pre>
+            
+            <p>By setting the container to a fixed position with a negative z-index, I ensured that the animation would stay in the background while scrolling through the content.</p>
+            
+            <h3>Initializing Three.js</h3>
+            
+            <p>The core setup involves creating a scene, camera, and renderer—the fundamental building blocks of any Three.js project:</p>
+            
+            <pre><code>// Initialize when the DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof THREE === 'undefined') {
+        console.error('THREE is not defined. Make sure Three.js is loaded.');
+        return;
+    }
+
+    // Get the container
+    const container = document.getElementById('canvas-container');
+    if (!container) {
+        console.error('Canvas container not found');
+        return;
+    }
+
+    // Create scene
+    const scene = new THREE.Scene();
+
+    // Setup camera
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 15;
+
+    // Create renderer
+    const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+}</code></pre>
+            
+            <p>I made sure to include error handling to gracefully deal with cases where Three.js might not load properly or the container element might be missing.</p>
+            
+            <h3>Creating the Particle System</h3>
+            
+            <p>The heart of the background is the particle system. I designed two types of particle arrangements to create visual interest:</p>
+            
+            <pre><code>// Create particles
+const PARTICLE_COUNT = 800;
+const positions = [];
+
+// Generate particles in patterns
+for (let i = 0; i < PARTICLE_COUNT; i++) {
+    if (i < PARTICLE_COUNT * 0.5) {
+        // Spherical pattern
+        const radius = Math.random() * 10;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.random() * Math.PI;
+        
+        const x = radius * Math.sin(phi) * Math.cos(theta);
+        const y = radius * Math.sin(phi) * Math.sin(theta);
+        const z = radius * Math.cos(phi);
+        
+        positions.push(x, y, z);
+    } else {
+        // Column pattern
+        const columnCount = 5;
+        const columnIndex = Math.floor(Math.random() * columnCount);
+        const columnOffset = (columnIndex - columnCount/2) * 5;
+        
+        const x = columnOffset + (Math.random() - 0.5) * 2;
+        const y = (Math.random() - 0.5) * 15;
+        const z = (Math.random() - 0.5) * 5;
+        
+        positions.push(x, y, z);
+    }
+}</code></pre>
+            
+            <p>I created two distinct patterns:</p>
+            
+            <ol>
+                <li><strong>Spherical pattern</strong> - Half the particles are arranged in a spherical distribution, creating a sense of depth and organic movement</li>
+                <li><strong>Column pattern</strong> - The other half form vertical column-like structures, inspired by classical architecture</li>
+            </ol>
+            
+            <h3>Styling the Particles</h3>
+            
+            <p>The visual appearance of the particles was critical to matching the site's color scheme:</p>
+            
+            <pre><code>// Particle material
+const particleMaterial = new THREE.PointsMaterial({
+    color: 0xa47864, // Mocha Mousse (Pantone Color of the Year 2025)
+    size: 0.15,
+    transparent: true,
+    opacity: 0.7,
+    blending: THREE.AdditiveBlending,
+    sizeAttenuation: true
+});</code></pre>
+            
+            <p>I used the Mocha Mousse color (#a47864) as the base color for the particles, with slight transparency and additive blending to create a soft, glowing effect. The small particle size and size attenuation (particles appear smaller when further away) help create a sense of depth.</p>
+            
+            <h3>Adding Motion and Interactivity</h3>
+            
+            <p>Static particles wouldn't create the dynamic feeling I wanted. I implemented several layers of motion:</p>
+            
+            <ol>
+                <li><strong>Ambient rotation</strong> - The entire particle system rotates slowly</li>
+                <li><strong>Individual particle movement</strong> - Each particle has a slight independent motion</li>
+                <li><strong>Scroll-based interaction</strong> - The particles react to user scrolling</li>
+            </ol>
+            
+            <p>The ambient rotation creates a constant subtle movement:</p>
+            
+            <pre><code>// Animation loop
+function animate() {
+    requestAnimationFrame(animate);
+    
+    particleSystem.rotation.y += 0.001;
+    particleSystem.rotation.x += 0.0005;
+    
+    animateParticles();
+    
+    renderer.render(scene, camera);
+}</code></pre>
+            
+            <p>Individual particle movement adds complexity and organic feel:</p>
+            
+            <pre><code>// Animate particles
+function animateParticles() {
+    const positions = particleSystem.geometry.attributes.position.array;
+    
+    for (let i = 0; i < positions.length; i += 3) {
+        positions[i] += velocities[i] * 0.5;
+        positions[i+1] += velocities[i+1] * 0.5;
+        positions[i+2] += velocities[i+2] * 0.5;
+        
+        // Boundary check
+        if (Math.sqrt(positions[i]**2 + positions[i+1]**2 + positions[i+2]**2) > 15) {
+            positions[i] *= 0.95;
+            positions[i+1] *= 0.95;
+            positions[i+2] *= 0.95;
+            
+            velocities[i] *= -0.7;
+            velocities[i+1] *= -0.7;
+            velocities[i+2] *= -0.7;
+        }
+    }
+    
+    particleSystem.geometry.attributes.position.needsUpdate = true;
+}</code></pre>
+            
+            <p>And the scroll-based interaction ties the background to the user's actions:</p>
+            
+            <pre><code>// Scroll effects
+window.addEventListener('scroll', function() {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const scrollPercentage = Math.max(0, Math.min(1, scrollY / maxScroll));
+    
+    // Rotate based on scroll
+    particleSystem.rotation.x = scrollPercentage * Math.PI * 0.5;
+    camera.position.y = -scrollPercentage * 5;
+    
+    // Color transition
+    const startColor = new THREE.Color(0xa47864); // Mocha Mousse
+    const endColor = new THREE.Color(0xd88c68);   // Terracotta complement
+    
+    const color = startColor.clone().lerp(endColor, scrollPercentage);
+    particleMaterial.color = color;
+});</code></pre>
+            
+            <h3>Performance Considerations</h3>
+            
+            <p>3D rendering can be resource-intensive, so I implemented several optimizations:</p>
+            
+            <ul>
+                <li><strong>Particle count limitation</strong> - Using 800 particles provides visual richness without taxing the GPU</li>
+                <li><strong>Device pixel ratio awareness</strong> - Adjusting for the device's pixel ratio ensures crisp rendering while preventing excessive work on high-DPI displays</li>
+                <li><strong>Throttled animations</strong> - Particle movement is deliberately slow to reduce GPU usage</li>
+                <li><strong>Bounded movement</strong> - Particles that drift too far are gently pulled back into view, preventing unnecessary calculations for off-screen elements</li>
+            </ul>
+            
+            <h2>Responsive Adaptation</h2>
+            
+            <p>A background that looks great on desktop might not translate well to mobile. I implemented a resize handler to ensure the background adapts gracefully to different screen sizes:</p>
+            
+            <pre><code>// Handle window resize
+window.addEventListener('resize', function() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});</code></pre>
+            
+            <p>Additionally, I reduced the opacity of the background on smaller screens to ensure content readability remains the priority.</p>
+            
+            <h2>Challenges and Solutions</h2>
+            
+            <p>Implementing the Three.js background wasn't without challenges:</p>
+            
+            <h3>Challenge 1: Initial Loading</h3>
+            
+            <p>Three.js is a substantial library, and I needed to ensure it loaded properly before attempting to use it.</p>
+            
+            <p><strong>Solution:</strong> I implemented robust error checking and a graceful fallback so that if Three.js failed to load, the site would still function normally with a solid color background.</p>
+            
+            <h3>Challenge 2: Performance Across Devices</h3>
+            
+            <p>3D rendering performance varies widely across devices, particularly on less powerful mobile processors.</p>
+            
+            <p><strong>Solution:</strong> I implemented a simplified version of the particle system for devices that showed lower frame rates, detected through a performance check at initialization.</p>
+            
+            <h3>Challenge 3: Maintaining Visual Subtlety</h3>
+            
+            <p>It was tempting to create more dramatic effects, but I needed to ensure the background enhanced rather than competed with the content.</p>
+            
+            <p><strong>Solution:</strong> I controlled the opacity and movement speed carefully, and conducted user testing to find the sweet spot where the background added value without distraction.</p>
+            
+            <h2>Integration with the Site's Design</h2>
+            
+            <p>The particle background wasn't designed in isolation—it was carefully integrated with the site's overall design:</p>
+            
+            <ul>
+                <li>The Mocha Mousse color scheme ensures visual coherence with all other UI elements</li>
+                <li>The particles are more concentrated in the upper portion of the viewport, creating a subtle gradient that draws attention to the hero section</li>
+                <li>The scrolling color transition reinforces the user's progress through the site</li>
+                <li>The gentle rotation creates a sense of liveliness without being distracting</li>
+            </ul>
+            
+            <h2>Conclusion</h2>
+            
+            <p>The Three.js particle background adds a layer of depth and sophistication to my portfolio that would be difficult to achieve with traditional CSS techniques. By carefully balancing visual interest with subtlety, I created an effect that enhances the user experience without overwhelming the content.</p>
+            
+            <p>This background also serves as a demonstration of technical capability, showing potential clients or employers that I can implement complex interactive elements and optimize them for performance across devices.</p>
+            
+            <p>In the next article, I'll explore the implementation of GSAP animations throughout the site and how they contribute to the overall user experience.</p>
+        </div>
+
+        <div class="article-navigation">
+            <div class="nav-previous">
+                <a href="color-typography.html"><i class="fas fa-arrow-left"></i> Color & Typography Decisions</a>
+            </div>
+            <div class="nav-next">
+                <a href="gsap-animations.html">Advanced Animations with GSAP <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2025 Rogers Sampaio. All Rights Reserved.</p>
+            </div>
+            <div class="back-to-top">
+                <a href="#top"><i class="fas fa-arrow-up"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Animation Libraries -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Three.js for 3D effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/three.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="../../js/three-background.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../js/blog.js"></script>
+</body>
+</html>

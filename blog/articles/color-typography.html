@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color & Typography Decisions | Rogers Sampaio Blog</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../css/blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html">Rogers<span>.dev</span></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../index.html#home">Home</a></li>
+                    <li><a href="../../index.html#about">About</a></li>
+                    <li><a href="../../index.html#experience">Experience</a></li>
+                    <li><a href="../../index.html#skills">Skills</a></li>
+                    <li><a href="../../index.html#projects">Projects</a></li>
+                    <li><a href="../../index.html#contact">Contact</a></li>
+                    <li><a href="../index.html" class="active">Blog</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <div class="bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="article-container">
+        <div class="article-hero">
+            <h1>Color & Typography Decisions</h1>
+            <div class="article-meta">
+                <span class="date"><i class="far fa-calendar"></i> April 11, 2025</span>
+                <span class="author">
+                    <img src="https://ui-avatars.com/api/?name=Rogers+Sampaio&background=a47864&color=fff&size=100&font-size=0.35&rounded=true&bold=true" alt="Rogers Sampaio">
+                    <span>Rogers Sampaio</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="featured-image">
+            <img src="https://placehold.co/800x400/a47864/ffffff?text=Color+%26+Typography" alt="Color & Typography">
+        </div>
+
+        <div class="article-content-full">
+            <p>The visual identity of a portfolio website is largely defined by its color palette and typography choices. In this article, I'll explain why I chose the Mocha Mousse color scheme and DM Sans with Playfair Display for typography, and how these decisions contribute to the overall user experience of my portfolio.</p>
+            
+            <h2>Embracing Mocha Mousse: Pantone Color of the Year 2025</h2>
+            
+            <p>When selecting a color palette for my portfolio, I wanted something contemporary yet timeless, sophisticated yet warm. The announcement of Pantone's Color of the Year 2025, Mocha Mousse (#a47864), presented the perfect opportunity to incorporate a fresh, trend-forward hue that also aligned perfectly with my design goals.</p>
+
+            <h3>Why Mocha Mousse Works</h3>
+            
+            <p>Mocha Mousse is a warm, earthy brown with subtle reddish undertones that creates an inviting, grounded feeling. This color works exceptionally well for a portfolio for several reasons:</p>
+            
+            <ul>
+                <li><strong>Warmth and Approachability</strong> - The warm tone feels inviting and approachable, creating an immediate positive emotional connection</li>
+                <li><strong>Sophistication</strong> - Unlike brighter colors, this subdued hue communicates professionalism and sophistication</li>
+                <li><strong>Versatility</strong> - It pairs beautifully with a wide range of complementary colors, allowing for a balanced palette</li>
+                <li><strong>Contemporary Relevance</strong> - As the Pantone Color of the Year 2025, it positions my portfolio as current and trend-aware</li>
+                <li><strong>Differentiation</strong> - It stands apart from the blues and greens commonly used in tech portfolios, helping my site be memorable</li>
+            </ul>
+            
+            <h3>Building the Color Palette</h3>
+            
+            <p>While Mocha Mousse serves as the primary brand color, a single color isn't enough to create a complete design system. I developed a full palette around it:</p>
+            
+            <ul>
+                <li><strong>Primary: Mocha Mousse (#a47864)</strong> - Used for primary buttons, accents, and brand elements</li>
+                <li><strong>Secondary tints (#b89084, #caa89e)</strong> - Lighter variations for hover states and secondary elements</li>
+                <li><strong>Complementary neutrals (#9e9286, #d4c0b9)</strong> - For backgrounds and subtle accents</li>
+                <li><strong>Dark (#333333)</strong> - For text and high-contrast elements</li>
+                <li><strong>Light (#f8f5f3)</strong> - For backgrounds and text on dark elements</li>
+            </ul>
+            
+            <p>This palette maintains cohesion while providing enough variation for different UI needs. I implemented CSS variables to manage these colors consistently throughout the site:</p>
+            
+            <pre><code>:root {
+    /* Colors */
+    --primary-color: #a47864;
+    --primary-light: #b89084;
+    --primary-lighter: #caa89e;
+    --secondary-color: #9e9286;
+    --secondary-light: #d4c0b9;
+    --dark-color: #333333;
+    --gray-color: #777777;
+    --light-color: #f8f5f3;
+    --bg-color: #ffffff;
+    --light-bg: #f9f5f3;
+}</code></pre>
+            
+            <h3>Color Accessibility Considerations</h3>
+            
+            <p>While aesthetics were important, I also prioritized accessibility in my color choices. I ensured that:</p>
+            
+            <ul>
+                <li>Text colors have sufficient contrast against their backgrounds (meeting WCAG AA standards)</li>
+                <li>Interactive elements are clearly distinguishable through color and other visual cues</li>
+                <li>Color is never the sole indicator of meaning or functionality</li>
+            </ul>
+            
+            <h2>Typography: DM Sans & Playfair Display</h2>
+            
+            <p>Typography is arguably even more important than color in establishing a website's visual identity. I chose a combination of DM Sans and Playfair Display to create a modern-meets-classical aesthetic that aligns with my overall design philosophy.</p>
+            
+            <h3>DM Sans for Readability and Modern Feel</h3>
+            
+            <p>DM Sans is a geometric sans-serif typeface with a modern, clean appearance. I selected it as my primary font for body text and UI elements for several reasons:</p>
+            
+            <ul>
+                <li><strong>Exceptional readability</strong> - Its clean forms and proper spacing make it highly legible even at smaller sizes</li>
+                <li><strong>Contemporary aesthetic</strong> - The geometric structure feels current and tech-forward</li>
+                <li><strong>Character</strong> - Despite being a sans-serif, it has subtle unique characteristics that give it personality</li>
+                <li><strong>Versatility</strong> - It works well across different weights, making it suitable for various UI elements</li>
+            </ul>
+            
+            <p>I implemented DM Sans with the following adjustments to optimize its appearance:</p>
+            
+            <ul>
+                <li>Slightly tighter letter-spacing (-0.01em) to create a more cohesive text block</li>
+                <li>Increased line height (1.7) for improved readability, especially in longer paragraphs</li>
+                <li>Strategic use of weights (400 for body text, 500 for UI elements, 600 for emphasis)</li>
+            </ul>
+            
+            <h3>Playfair Display for Classical Elegance</h3>
+            
+            <p>For headings and statement text, I chose Playfair Display, a serif typeface with classical influences. This selection:</p>
+            
+            <ul>
+                <li><strong>Creates visual hierarchy</strong> - The contrast between serif headings and sans-serif body text clearly defines content structure</li>
+                <li><strong>Adds sophistication</strong> - The refined serifs bring a touch of elegance that elevates the overall design</li>
+                <li><strong>Embodies the classical element</strong> - It represents the "classical" aspect of my modern-classical design fusion</li>
+                <li><strong>Offers distinctive character</strong> - Its high contrast and unique details make headings memorable</li>
+            </ul>
+            
+            <p>I particularly employed Playfair Display in the hero section and major section headings to create impactful moments throughout the user journey.</p>
+            
+            <h3>Typographic Hierarchy</h3>
+            
+            <p>Beyond font selection, I established a clear typographic hierarchy to guide users through content:</p>
+            
+            <ol>
+                <li><strong>Primary headings</strong> - Playfair Display, 48-50px, used for the main hero text and section titles</li>
+                <li><strong>Secondary headings</strong> - Playfair Display, 30-36px, for subsection headings</li>
+                <li><strong>Tertiary headings</strong> - DM Sans, 22-24px, semi-bold, for component headings</li>
+                <li><strong>Body text</strong> - DM Sans, 16-18px, for main content</li>
+                <li><strong>Supporting text</strong> - DM Sans, 14-15px, for captions and auxiliary information</li>
+            </ol>
+            
+            <p>This hierarchy creates a natural flow through the content, helping users scan and digest information effectively.</p>
+            
+            <h3>Typography Implementation</h3>
+            
+            <p>The fonts are implemented through Google Fonts with appropriate weights preloaded:</p>
+            
+            <pre><code>&lt;link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet"&gt;</code></pre>
+            
+            <p>And managed through CSS variables for consistency:</p>
+            
+            <pre><code>:root {
+    /* Typography */
+    --classical-font: 'Playfair Display', serif;
+    --modern-font: 'DM Sans', sans-serif;
+}</code></pre>
+            
+            <h2>Color and Typography in Action</h2>
+            
+            <p>The true test of color and typography choices is how they work together in the actual interface. Throughout the site, I employed these elements to:</p>
+            
+            <ul>
+                <li><strong>Create focal points</strong> - The Mocha Mousse color draws attention to important actions and information</li>
+                <li><strong>Establish rhythm</strong> - Consistent typographic spacing creates a sense of order and harmony</li>
+                <li><strong>Guide user flow</strong> - Strategic color and type changes help direct the user's journey through the content</li>
+                <li><strong>Maintain cohesion</strong> - The consistent palette and type system tie different sections together into a unified experience</li>
+            </ul>
+            
+            <h3>Micro-Interactions and Hover States</h3>
+            
+            <p>I paid particular attention to how color and typography behave during interactions. For example:</p>
+            
+            <ul>
+                <li>Buttons shift to a slightly lighter shade of Mocha Mousse on hover, providing clear feedback</li>
+                <li>Navigation links feature subtle transitions that guide users to their current location</li>
+                <li>Interactive elements grow slightly and change color to indicate their actionable nature</li>
+            </ul>
+            
+            <h2>Conclusion</h2>
+            
+            <p>The combination of Mocha Mousse as the primary color and the DM Sans/Playfair Display typographic pairing creates a visual language that is simultaneously modern, sophisticated, and timeless. These choices weren't merely aesthetic—they were strategic decisions to create a specific impression and user experience.</p>
+            
+            <p>In the next article, I'll explore the implementation of the Three.js background animation that adds depth and interactivity to the site.</p>
+        </div>
+
+        <div class="article-navigation">
+            <div class="nav-previous">
+                <a href="design-philosophy.html"><i class="fas fa-arrow-left"></i> Design Philosophy & Planning</a>
+            </div>
+            <div class="nav-next">
+                <a href="threejs-background.html">Creating the Three.js Background <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2025 Rogers Sampaio. All Rights Reserved.</p>
+            </div>
+            <div class="back-to-top">
+                <a href="#top"><i class="fas fa-arrow-up"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Animation Libraries -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Three.js for 3D effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/three.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="../../js/three-background.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../js/blog.js"></script>
+</body>
+</html>
